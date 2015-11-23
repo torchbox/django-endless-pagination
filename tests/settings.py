@@ -25,12 +25,24 @@ SECRET_KEY = os.getenv('ENDLESS_PAGINATION_SECRET_KEY', 'secret')
 SITE_ID = 1
 STATIC_ROOT = os.path.join(PROJECT, 'static')
 STATIC_URL = '/static/'
-TEMPLATE_CONTEXT_PROCESSORS += (
-    'django.core.context_processors.request',
-    PROJECT_NAME + '.context_processors.navbar',
-    PROJECT_NAME + '.context_processors.versions',
-)
-TEMPLATE_DIRS = os.path.join(PROJECT, 'templates')
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(PROJECT, 'templates')
+        ],
+        'OPTIONS': {
+            'context_processors': list(TEMPLATE_CONTEXT_PROCESSORS) + [
+                'django.core.context_processors.request',
+                PROJECT_NAME + '.context_processors.navbar',
+                PROJECT_NAME + '.context_processors.versions',
+            ],
+            'loaders': [
+                'django.template.loaders.app_directories.Loader',
+            ]
+        },
+    }
+]
 
 # Testing.
 NOSE_ARGS = (

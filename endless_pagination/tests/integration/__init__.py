@@ -17,7 +17,7 @@ from endless_pagination.utils import PYTHON3
 
 
 SHOW_BROWSER = os.getenv('SHOW_BROWSER', False)
-SKIP_SELENIUM = os.getenv('SKIP_SELENIUM', False)
+SKIP_SELENIUM = os.getenv('SKIP_SELENIUM', True)
 # FIXME: do not exclude integration tests on Python3 once Selenium is updated
 # (bug #17).
 tests_are_run = not (PYTHON3 or SKIP_SELENIUM)
