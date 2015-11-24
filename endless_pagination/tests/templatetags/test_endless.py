@@ -12,7 +12,6 @@ from django.template import (
 )
 from django.test import TestCase
 from django.test.client import RequestFactory
-from django.utils import unittest
 
 from endless_pagination.exceptions import PaginationError
 from endless_pagination.models import PageList
@@ -21,6 +20,11 @@ from endless_pagination.settings import (
     PER_PAGE,
 )
 from endless_pagination.tests import make_model_instances
+
+try:
+    import unittest
+except ImportError:
+    from django.utils import unittest
 
 
 skip_if_old_etree = unittest.skipIf(

@@ -8,10 +8,8 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 
 from endless_pagination import views
-from endless_pagination.tests import (
-    make_model_instances,
-    TestModel,
-)
+from endless_pagination.tests import make_model_instances
+from endless_pagination.models import TestModel
 
 
 class CustomizedListView(views.AjaxListView):

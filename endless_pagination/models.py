@@ -2,6 +2,7 @@
 
 from __future__ import unicode_literals
 
+from django.db import models
 from django.template import (
     loader,
     RequestContext,
@@ -65,7 +66,7 @@ class EndlessPage(utils.UnicodeMixin):
             template_name = 'endless/page_link.html'
         template = _template_cache.setdefault(
             template_name, loader.get_template(template_name))
-        return template.render(RequestContext(self._request, context))
+        return template.render(context)
 
 
 class PageList(utils.UnicodeMixin):
@@ -238,3 +239,10 @@ class PageList(utils.UnicodeMixin):
     def paginated(self):
         """Return True if this page list contains more than one page."""
         return len(self) > 1
+
+
+class TestModel(models.Model, utils.UnicodeMixin):
+    """A model used in tests."""
+
+    def __unicode__(self):
+        return 'TestModel: {0}'.format(self.id)

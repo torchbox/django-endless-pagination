@@ -16,7 +16,10 @@ DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3'}}
 DEBUG = TEMPLATE_DEBUG = True
 INSTALLED_APPS = (
     'django.contrib.staticfiles',
+    'django.contrib.contenttypes',
+    'django.contrib.auth',
     'endless_pagination',
+    'nose',
     PROJECT_NAME,
 )
 LANGUAGE_CODE = os.getenv('ENDLESS_PAGINATION_LANGUAGE_CODE', 'en-us')
@@ -33,7 +36,7 @@ TEMPLATES = [
         ],
         'OPTIONS': {
             'context_processors': list(TEMPLATE_CONTEXT_PROCESSORS) + [
-                'django.core.context_processors.request',
+                'django.template.context_processors.request',
                 PROJECT_NAME + '.context_processors.navbar',
                 PROJECT_NAME + '.context_processors.versions',
             ],

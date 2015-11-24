@@ -7,13 +7,17 @@ import os
 from django.core.urlresolvers import reverse
 from django.http import QueryDict
 from django.test import LiveServerTestCase
-from django.utils import unittest
 from selenium.common import exceptions
 from selenium.webdriver import Firefox
 from selenium.webdriver.support import ui
 from xvfbwrapper.xvfbwrapper import Xvfb
 
 from endless_pagination.utils import PYTHON3
+
+try:
+    import unittest
+except ImportError:
+    from django.utils import unittest
 
 
 SHOW_BROWSER = os.getenv('SHOW_BROWSER', False)
