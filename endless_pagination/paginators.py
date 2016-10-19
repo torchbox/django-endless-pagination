@@ -9,6 +9,7 @@ from django.core.paginator import (
     PageNotAnInteger,
     Paginator,
 )
+from django.utils.functional import cached_property
 
 
 class CustomPage(Page):
@@ -65,15 +66,15 @@ class DefaultPaginator(BasePaginator):
             top = self.count
         return CustomPage(self.object_list[bottom:top], number, self)
 
-    def _get_num_pages(self):
-        if self._num_pages is None:
-            if self.count == 0 and not self.allow_empty_first_page:
-                self._num_pages = 0
-            else:
-                hits = max(0, self.count - self.orphans - self.first_page)
-                self._num_pages = int(ceil(hits / float(self.per_page))) + 1
-        return self._num_pages
-    num_pages = property(_get_num_pages)
+    @cached_property
+    def num_pages(self):
+        """
+        Returns the total number of pages.
+        """
+        if self.count == 0 and not self.allow_empty_first_page:
+            return 0
+        hits = max(0, self.count - self.orphans - self.first_page)
+        return int(ceil(hits / float(self.per_page))) + 1
 
 
 class LazyPaginator(BasePaginator):
